@@ -1,0 +1,7 @@
+PLAN.md
+node_modules/
+dist/
+.env
+.env.*
+.vercel/
+.pio/
