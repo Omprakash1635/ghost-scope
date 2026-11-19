@@ -1,0 +1,41 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "3. SignalSource interface + SimSource": [
+      {
+        "executionId": "a03b450a-19da-4e88-a9aa-36414622f8c8",
+        "chatSessionId": "sess_a58643b1-9be8-4ebe-896b-ce7966f81c62",
+        "timestamp": 1795092158638
+      },
+      {
+        "executionId": "a03b450a-19da-4e88-a9aa-36414622f8c8",
+        "chatSessionId": "sess_a58643b1-9be8-4ebe-896b-ce7966f81c62",
+        "timestamp": 1795095243473
+      }
+    ],
+    "4. Zustand store": [
+      {
+        "executionId": "a03b450a-19da-4e88-a9aa-36414622f8c8",
+        "chatSessionId": "sess_a58643b1-9be8-4ebe-896b-ce7966f81c62",
+        "timestamp": 1795092162258
+      },
+      {
+        "executionId": "a03b450a-19da-4e88-a9aa-36414622f8c8",
+        "chatSessionId": "sess_a58643b1-9be8-4ebe-896b-ce7966f81c62",
+        "timestamp": 1795095243722
+      }
+    ],
+    "5. Basic canvas renderer, graticule and App wiring": [
+      {
+        "executionId": "a03b450a-19da-4e88-a9aa-36414622f8c8",
+        "chatSessionId": "sess_a58643b1-9be8-4ebe-896b-ce7966f81c62",
+        "timestamp": 1795095247723
+      },
+      {
+        "executionId": "a03b450a-19da-4e88-a9aa-36414622f8c8",
+        "chatSessionId": "sess_a58643b1-9be8-4ebe-896b-ce7966f81c62",
+        "timestamp": 1795104276571
+      }
+    ]
+  }
+}

@@ -96,7 +96,7 @@ Priorities: **P0** = must ship, **P1** = should ship, **P2** = stretch.
   - [x] 2.4 Create `docs/kiro-notes.md` with a daily-notes template: date, tasks worked on, what Kiro generated, what was manually adjusted, blockers
   - Dependencies: Task 1
 
-- [ ] 3. SignalSource interface + SimSource
+- [x] 3. SignalSource interface + SimSource
   - [ ] 3.1 Define `SignalSource` interface in `src/sources/SignalSource.ts`: fields `name: string`, `isRunning: boolean`, callbacks `onSamples(ch1, ch2, sampleRateHz)` and `onError(err)`, methods `start(): Promise<void>` and `stop(): void`; source switching rule: always call `stop()` on the current source before calling `start()` on the new one
   - [ ] 3.2 Implement `SimSource` in `src/sources/SimSource.ts`: internal sample rate 192000 Hz (fixed constant `SIM_SAMPLE_RATE_HZ = 192000`); cap user-configurable frequency at **48000 Hz** (= 192000/4, ensuring ≥ 4 samples per cycle for every waveform); deliver Float32Array chunks via `onSamples` callback; implement `start()` / `stop()` / `isRunning`
   - [ ] 3.3 Implement all 10 waveform types: sine, square, triangle, saw, noise, pwm, am, fm, haunted (random glitches), i2c (fake burst pattern)
@@ -105,7 +105,7 @@ Priorities: **P0** = must ship, **P1** = should ship, **P2** = stretch.
   - Satisfies: R1.1, R1.2
   - Dependencies: Task 1
 
-- [ ] 4. Zustand store
+- [x] 4. Zustand store
   - [ ] 4.1 Implement `src/store/scopeStore.ts` with the full `ScopeStore` shape:
     - Source: `activeSource` ('sim'|'mic'|'serial'), sim waveform params
     - Timebase: `timePerDivS`, `voltsPerDivCh1`, `voltsPerDivCh2`, `offsetVCh1`, `offsetVCh2`
@@ -118,7 +118,7 @@ Priorities: **P0** = must ship, **P1** = should ship, **P2** = stretch.
   - Satisfies: R2.5, R3.3, R3.4
   - Dependencies: Task 1
 
-- [ ] 5. Basic canvas renderer, graticule and App wiring
+- [x] 5. Basic canvas renderer, graticule and App wiring
   - [ ] 5.1 Implement `src/render/graticule.ts`: draw 10×8 division grid, minor division ticks, axis labels with units (time/div and volts/div from store)
   - [ ] 5.2 Implement `src/render/phosphorRenderer.ts` (basic version): `requestAnimationFrame` loop running outside React; clear canvas; draw trace as a bright line; call graticule; expose `renderFrame(frame, settings)` and `startLoop()` / `stopLoop()`
   - [ ] 5.3 Define `ScopeFrame` and `Measurement` TypeScript interfaces in `src/sources/types.ts`
