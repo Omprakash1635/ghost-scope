@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Run DSP/Protocol tests on save",
+      "trigger": "PostFileSave",
+      "matcher": "src/(dsp|protocol)/.*\\.(ts|tsx)$",
+      "action": {
+        "type": "command",
+        "command": "node -e \"\nconst path = require('path');\nconst { execSync } = require('child_process');\nconst data = require('fs').readFileSync(0, 'utf8');\nconst event = JSON.parse(data);\nconst saved = event.file || '';\nconst rel = saved.replace(/\\\\\\\\/g, '/').replace(/^.*src\\//, '');\nconst testFile = 'tests/' + rel.replace(/\\\\.tsx?$/, '.test.ts');\nconst fs = require('fs');\nif (!fs.existsSync(testFile)) { process.exit(0); }\ntry {\n  execSync('npx vitest run ' + testFile, { stdio: 'inherit' });\n} catch (e) {\n  process.exit(1);\n}\n\"",
+        "timeout": 60
+      }
+    }
+  ]
+}

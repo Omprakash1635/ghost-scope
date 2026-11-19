@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Check UI accessibility on save",
+      "trigger": "PostFileSave",
+      "matcher": "src/ui/.*\\.(ts|tsx)$",
+      "action": {
+        "type": "command",
+        "command": "node -e \"\nconst data = require('fs').readFileSync(0, 'utf8');\nconst event = JSON.parse(data);\nconst file = event.file || '';\nconst fs = require('fs');\nif (!fs.existsSync(file)) process.exit(0);\nconst src = fs.readFileSync(file, 'utf8');\nconst interactiveRe = /<(button|input|select|a )[^>]*>/g;\nconst ariaRe = /aria-label=/;\nconst textRe = />([^<]{1,})</;\nlet match;\nlet warnings = [];\nwhile ((match = interactiveRe.exec(src)) !== null) {\n  const tag = match[0];\n  const context = src.slice(Math.max(0, match.index), match.index + 200);\n  if (!ariaRe.test(tag) && !textRe.test(context)) {\n    warnings.push('Line ~' + (src.slice(0, match.index).split('\\n').length) + ': ' + tag.slice(0, 80) + ' — missing aria-label and visible text');\n  }\n}\nif (warnings.length > 0) {\n  console.warn('Accessibility warnings in ' + file + ':\\n' + warnings.join('\\n'));\n}\n\"",
+        "timeout": 15
+      }
+    }
+  ]
+}

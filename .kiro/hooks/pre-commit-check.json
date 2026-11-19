@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Pre-commit typecheck and lint",
+      "trigger": "Stop",
+      "action": {
+        "type": "command",
+        "command": "powershell -NoProfile -Command \"Set-Location 'd:/claude/ghost-scope'; npm run typecheck; if ($LASTEXITCODE -ne 0) { Write-Error 'Typecheck failed'; exit 2 }; npm run lint; if ($LASTEXITCODE -ne 0) { Write-Error 'Lint failed'; exit 2 }; Write-Host 'Pre-commit checks passed.'\"",
+        "timeout": 60
+      }
+    }
+  ]
+}
