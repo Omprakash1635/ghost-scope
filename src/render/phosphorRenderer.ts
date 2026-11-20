@@ -94,8 +94,8 @@ function tick(): void {
     offsetVCh1,
   } = store;
 
-  const W = canvas.width;
-  const H = canvas.height;
+  const W = canvas.clientWidth;
+  const H = canvas.clientHeight;
 
   // -------------------------------------------------------------------------
   // 1. Decay / clear pass

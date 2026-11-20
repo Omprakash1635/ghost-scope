@@ -128,21 +128,21 @@ Priorities: **P0** = must ship, **P1** = should ship, **P2** = stretch.
   - Satisfies: R1.1, R2.1, R2.5
   - Dependencies: Tasks 3, 4
 
-- [ ] 6. Deploy to Vercel
-  - [ ] 6.1 Connect the GitHub repository `Omprakash1635/ghost-scope` to a new Vercel project; set framework preset to Vite; confirm the production build succeeds
-  - [ ] 6.2 Open the production URL and verify: app loads, SimSource trace is moving, no console errors
-  - [ ] 6.3 Update `README.md`: replace the placeholder with the real production URL on the `Production URL:` line
-  - [ ] 6.4 Push to `main`; confirm Vercel redeploys automatically
+- [x] 6. Deploy to Vercel
+  - [x] 6.1 Connect the GitHub repository `Omprakash1635/ghost-scope` to a new Vercel project; set framework preset to Vite; confirm the production build succeeds
+  - [x] 6.2 Open the production URL and verify: app loads, SimSource trace is moving, no console errors
+  - [x] 6.3 Update `README.md`: replace the placeholder with the real production URL on the `Production URL:` line
+  - [x] 6.4 Push to `main`; confirm Vercel redeploys automatically
   - Satisfies: R1.1 (judges can try without hardware from a URL)
   - Dependencies: Task 5
 
 ### Wave 2 — Core oscilloscope features
 
-- [ ] 7. Trigger detection
-  - [ ] 7.1 Implement `src/dsp/trigger.ts`: `findTrigger(samples: Float32Array, level: number, edge: 'rising'|'falling', prevSample: number): number` — scan for Schmitt-hysteresis crossing; return index or -1; store last sample as `prevSample` for cross-boundary detection
-  - [ ] 7.2 Implement Auto/Normal/Single mode logic in the rAF loop: Auto free-runs on timeout (~100 ms without trigger), Normal waits for trigger, Single captures once then stops and sets `singleCaptureReady = true`; implement holdoff (`triggerHoldoffS`)
-  - [ ] 7.3 Wire trigger to renderer: trace aligns at trigger point horizontally
-  - [ ] 7.4 Property-based test P12 (required) in `tests/dsp/trigger.test.ts`: for all samples with a rising trigger found at index i, assert `samples[i-1] < level && samples[i] >= level`. Use `fc.float32Array({ minLength: 2, maxLength: 1024, noNaN: true, noDefaultInfinity: true, min: -10, max: 10 })`
+- [x] 7. Trigger detection
+  - [x] 7.1 Implement `src/dsp/trigger.ts`: `findTrigger(samples: Float32Array, level: number, edge: 'rising'|'falling', prevSample: number): number` — scan for Schmitt-hysteresis crossing; return index or -1; store last sample as `prevSample` for cross-boundary detection
+  - [x] 7.2 Implement Auto/Normal/Single mode logic in the rAF loop: Auto free-runs on timeout (~100 ms without trigger), Normal waits for trigger, Single captures once then stops and sets `singleCaptureReady = true`; implement holdoff (`triggerHoldoffS`)
+  - [x] 7.3 Wire trigger to renderer: trace aligns at trigger point horizontally
+  - [x] 7.4 Property-based test P12 (required) in `tests/dsp/trigger.test.ts`: for all samples with a rising trigger found at index i, assert `samples[i-1] < level && samples[i] >= level`. Use `fc.float32Array({ minLength: 2, maxLength: 1024, noNaN: true, noDefaultInfinity: true, min: -10, max: 10 })`
   - Satisfies: R2.3, R2.4
   - Dependencies: Task 5
 

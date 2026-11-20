@@ -2,7 +2,7 @@
 
 A free oscilloscope in the browser — plug in an ESP32 or use the built-in signal simulator. Features a glowing CRT phosphor display, live measurements, FFT spectrum view, and an AI "Ghost Technician" that explains your signal.
 
-**Production URL: (added in Task 6)**
+**Production URL: https://ghost-scope.vercel.app**
 
 ---
 
