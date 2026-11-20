@@ -1,4 +1,4 @@
-﻿# Implementation Plan: Ghost Scope
+# Implementation Plan: Ghost Scope
 
 ## Overview
 

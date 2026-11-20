@@ -35,6 +35,7 @@ export default function App() {
   const toggleRunning = useScopeStore((s) => s.toggleRunning);
   const simWaveform = useScopeStore((s) => s.simWaveform);
   const applySettings = useScopeStore((s) => s.applySettings);
+  const voltsPerDivCh1 = useScopeStore((s) => s.voltsPerDivCh1);
 
   // ---------------------------------------------------------------------------
   // Create the SimSource once on mount; wire samples through the trigger DSP.
@@ -89,7 +90,8 @@ export default function App() {
       let triggerIndex = -1;
 
       if (now >= holdoffUntil) {
-        triggerIndex = findTrigger(ch1, triggerLevelV, triggerEdge, prevSample);
+        const hysteresisV = 0.1 * useScopeStore.getState().voltsPerDivCh1;
+        triggerIndex = findTrigger(ch1, triggerLevelV, triggerEdge, prevSample, hysteresisV);
       }
 
       // Update prevSample for next call.
