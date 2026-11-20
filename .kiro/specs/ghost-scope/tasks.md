@@ -146,12 +146,12 @@ Priorities: **P0** = must ship, **P1** = should ship, **P2** = stretch.
   - Satisfies: R2.3, R2.4
   - Dependencies: Task 5
 
-- [ ] 8. DSP measurements
-  - [ ] 8.1 Implement `src/dsp/measurements.ts`: `computeMeasurements(samples: Float32Array, sampleRateHz: number): Measurement`
-  - [ ] 8.2 Schmitt-trigger zero crossing: `mean = avg(samples)`, `high = mean + 0.1*vpp`, `low = mean - 0.1*vpp`; track state machine (above/below/unknown); collect rising and falling crossing indices
-  - [ ] 8.3 Compute all 8 metrics: `vmin`, `vmax`, `vpp`, `vmean`, `vrms`; `frequencyHz` = null if fewer than 2 full periods or if period stddev/mean > 0.2; `periodS` = null when freq is null; `dutyCycle` = null if fewer than 2 full periods or fewer than 80% of samples are within 15% of vpp from vmin or vmax
-  - [ ] 8.4 MicSource path: when `activeSource === 'mic'`, label vmin/vmax/vpp/vmean/vrms as dBFS (`20 * log10(|sample| + 1e-9)`)
-  - [ ] 8.5 Property-based tests (required) in `tests/dsp/measurements.test.ts`. Use `fc.float32Array({ minLength: 2, maxLength: 1024, noNaN: true, noDefaultInfinity: true, min: -10, max: 10 })` for all signal generators:
+- [x] 8. DSP measurements
+  - [x] 8.1 Implement `src/dsp/measurements.ts`: `computeMeasurements(samples: Float32Array, sampleRateHz: number): Measurement`
+  - [x] 8.2 Schmitt-trigger zero crossing: `mean = avg(samples)`, `high = mean + 0.1*vpp`, `low = mean - 0.1*vpp`; track state machine (above/below/unknown); collect rising and falling crossing indices
+  - [x] 8.3 Compute all 8 metrics: `vmin`, `vmax`, `vpp`, `vmean`, `vrms`; `frequencyHz` = null if fewer than 2 full periods or if period stddev/mean > 0.2; `periodS` = null when freq is null; `dutyCycle` = null if fewer than 2 full periods or fewer than 80% of samples are within 15% of vpp from vmin or vmax
+  - [x] 8.4 MicSource path: when `activeSource === 'mic'`, label vmin/vmax/vpp/vmean/vrms as dBFS (`20 * log10(|sample| + 1e-9)`)
+  - [x] 8.5 Property-based tests (required) in `tests/dsp/measurements.test.ts`. Use `fc.float32Array({ minLength: 2, maxLength: 1024, noNaN: true, noDefaultInfinity: true, min: -10, max: 10 })` for all signal generators:
     - P8: vpp ≥ 0 for all inputs
     - P9: vrms ≥ 0 for all inputs
     - P10: constant signal (all same value) → `frequencyHz === null`
@@ -159,10 +159,10 @@ Priorities: **P0** = must ship, **P1** = should ship, **P2** = stretch.
   - Satisfies: R4.1, R4.2
   - Dependencies: Task 5
 
-- [ ] 9. Downsampling
-  - [ ] 9.1 Implement `src/dsp/downsample.ts`: `downsample(input: Float32Array, targetLength: number): Float32Array` using min-max bucketing — split into `ceil(targetLength/2)` buckets; each outputs `[min, max]` in chronological order (min first if min appears before max in the bucket, else max first); if targetLength is odd, the last bucket outputs only min
-  - [ ] 9.2 Guarantees: `output.length === targetLength` exactly; every output value ∈ `[min(input), max(input)]`; every input sample belongs to exactly one bucket
-  - [ ] 9.3 Property-based tests (required) in `tests/dsp/downsample.test.ts`:
+- [x] 9. Downsampling
+  - [x] 9.1 Implement `src/dsp/downsample.ts`: `downsample(input: Float32Array, targetLength: number): Float32Array` using min-max bucketing — split into `ceil(targetLength/2)` buckets; each outputs `[min, max]` in chronological order (min first if min appears before max in the bucket, else max first); if targetLength is odd, the last bucket outputs only min
+  - [x] 9.2 Guarantees: `output.length === targetLength` exactly; every output value ∈ `[min(input), max(input)]`; every input sample belongs to exactly one bucket
+  - [x] 9.3 Property-based tests (required) in `tests/dsp/downsample.test.ts`:
     - P6 (length): for all Float32Array inputs and `targetLength = fc.integer({ min: 1, max: input.length })`, `downsample(input, targetLength).length === targetLength`
     - P7 (bounds): for all inputs and valid targetLength, every output value ∈ `[min(input), max(input)]`
     - Use `fc.float32Array({ minLength: 2, maxLength: 1024, noNaN: true, noDefaultInfinity: true, min: -10, max: 10 })`; generate targetLength with `fc.integer({ min: 1, max: input.length })` (not a fixed value)

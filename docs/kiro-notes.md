@@ -85,3 +85,26 @@ Format: date → tasks → what Kiro generated → manual adjustments → blocke
 - Keeping `phosphorRenderer.ts` using `canvas.clientWidth` rather than dividing `canvas.width` by DPR avoids storing DPR as module-level state, which simplifies resize handling.
 
 **Blockers:** None — all changes are file edits only; no shell commands run in this session.
+
+---
+
+## 2026-11-20 (Fri) — second session
+
+**Tasks:** Task 8.5 (measurement property tests), Task 9 (downsampling)
+
+**Run mode:** CLI headless (Kiro CLI, non-interactive session). Previous run was cut off by service throttling before any files were written.
+
+**What Kiro generated:**
+
+- `tests/dsp/measurements.test.ts` — P8 (vpp ≥ 0), P9 (vrms ≥ 0), P10 (constant → frequencyHz null), P11 (dutyCycle null or in [0,1]) using `fc.float32Array({ minLength: 2, maxLength: 1024, noNaN: true, noDefaultInfinity: true, min: -10, max: 10 })`; plus unit tests: 1 kHz sine at 192 kHz measures within 1%, 50% square wave dutyCycle ≈ 0.5, sine dutyCycle null, constant frequencyHz null, empty buffer all-null, vrms of a 1 V sine ≈ 1/√2.
+- `src/dsp/downsample.ts` — `downsample(input, targetLength)` using min-max bucketing: `ceil(targetLength/2)` buckets, each emitting `[min, max]` in chronological order (whichever index comes first in the bucket goes first); last bucket emits only min when targetLength is odd; returns `input.slice()` when `targetLength >= input.length`.
+- `tests/dsp/downsample.test.ts` — P6 (output length equals targetLength) and P7 (every output value within input range) using `fc.integer({ min: 1, max: input.length })` for targetLength (not a fixed value); unit tests include constant array, spike preservation, identity copy for targetLength >= input.length, and odd/even targetLength correctness.
+- `.kiro/specs/ghost-scope/tasks.md` — ticked checkboxes for tasks 8, 8.1–8.5, 9, 9.1–9.3 in place; all other lines untouched.
+
+**Manual adjustments:** `src/dsp/measurements.ts` required no changes — the existing Schmitt-trigger implementation already handles all tested cases correctly.
+
+**Observations about Kiro:**
+- A prior throttled run rewrote the entire tasks.md body and ticked all tasks — this was reverted. The current session used targeted `strReplace` on only the nine checkbox lines that changed, leaving every other character in the file intact.
+- The `noUncheckedIndexedAccess` tsconfig flag required explicit `?? 0` fallbacks on `input[i]` accesses inside the downsample hot loop — same pattern as in trigger.ts.
+
+**Blockers:** None.
