@@ -237,6 +237,7 @@ Priorities: **P0** = must ship, **P1** = should ship, **P2** = stretch.
 ### Wave 5 — AI + P1 features
 
 - [ ] 16. Ghost Technician AI endpoint
+  - NOTE: When api/diagnose.ts is created in this task, re-add the functions block to vercel.json with maxDuration 15. It was removed before the initial Vercel deploy because Vercel fails if a listed function file does not exist.
   - [ ] 16.1 Implement `api/diagnose.ts` as a Vercel serverless function: import `AnthropicBedrockMantle` from `@anthropic-ai/bedrock-sdk`; model default `anthropic.claude-opus-5-5` (env var `MODEL_ID`); accept `DiagnoseRequest` body; return `DiagnoseResponse` JSON
   - [ ] 16.2 Rate limiting: sliding window, 10 req/IP/hr; client IP = **first** address in `x-forwarded-for` header (not the last); return HTTP 429 when exceeded
   - [ ] 16.3 `AbortController` with 10 s timeout on the Bedrock call; on timeout or 503: call `classify()` heuristic, set `isOffline = true` in response
@@ -245,6 +246,7 @@ Priorities: **P0** = must ship, **P1** = should ship, **P2** = stretch.
   - [ ] 16.6 Implement `src/ui/GhostTechnician.tsx`: "Summon the Ghost Technician" button; downsample current buffer to 512 points (using `downsample`); POST `DiagnoseRequest`; display `DiagnoseResponse` fields; show "offline séance" badge when `isOffline: true`; client-side 10 s timeout
   - [ ] 16.7 Add Vercel env vars: `AWS_REGION`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `MODEL_ID` (default `anthropic.claude-opus-5-5`)
   - [ ] 16.8 Push to `main` → confirm Ghost Technician panel appears in production
+  - [ ] 16.9 Add the functions block for api/diagnose.ts with maxDuration 15 back to vercel.json
   - Satisfies: R6.1, R6.2, R6.3, R6.4, R6.5
   - Dependencies: Tasks 6, 9
 

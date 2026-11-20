@@ -44,3 +44,4 @@
 - Units in names: `sampleRateHz`, `voltsPerDiv`, `timePerDivS`.
 - No `any`. Prefer small modules over large files.
 - Every user-visible number gets a unit.
+- Save every file as UTF-8 without a byte order mark. Never write source files with PowerShell Set-Content or Out-File, which can add a BOM and corrupt characters such as µ and —.

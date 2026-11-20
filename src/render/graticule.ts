@@ -143,14 +143,14 @@ export function drawGraticule(
   ctx.font = '11px monospace';
   ctx.fillStyle = 'rgba(0, 220, 0, 0.8)';
   ctx.textBaseline = 'bottom';
-  ctx.textAlign = 'left';
 
   // Time/div — bottom-left
-  ctx.fillText(formatTime(timePerDivS), 6, height - 4);
+  ctx.textAlign = 'left';
+  ctx.fillText(formatTime(timePerDivS), 6, height - 6);
 
-  // Volts/div — top-left
-  ctx.textBaseline = 'top';
-  ctx.fillText(formatVolts(voltsPerDivCh1), 6, 4);
+  // V/div — bottom-right (moved from top-left to avoid overlapping the control bar)
+  ctx.textAlign = 'right';
+  ctx.fillText(formatVolts(voltsPerDivCh1), width - 6, height - 6);
 
   ctx.restore();
 }

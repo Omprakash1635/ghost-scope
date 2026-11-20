@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/diagnose.ts": {
-      "maxDuration": 15
-    }
-  },
   "rewrites": [
     {
       "source": "/((?!api/).*)",
